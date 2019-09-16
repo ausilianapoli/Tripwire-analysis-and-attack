@@ -1,0 +1,13 @@
+#!/bin/bash
+input=".shmd5"
+while IFS= read -r line
+do
+	full_line=$line
+	command_path=$(echo $full_line | cut -d' ' -f 2)
+	command=${command_path##*/}
+	if [[ $1 == $command ]]; then
+		hash=$(echo $full_line | cut -d' ' -f 1)
+		echo "$hash" "$command"
+		exit
+	fi
+done < "$input"
